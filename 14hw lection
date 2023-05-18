@@ -1,0 +1,228 @@
+import sqlite3
+
+import pandas as pd
+
+connection = sqlite3.connect('database2.db')
+
+sql_query = '''
+CREATE TABLE table1 (
+    id_id TEXT PRIMARY KEY,
+    Vehicle_type TEXT,
+    Milleage INTEGER,
+    Max_speed INTEGER,
+    Passenger_count INTEGER,
+    Category TEXT 
+    )'''
+
+cursor = connection.cursor()
+try:
+    cursor.execute(sql_query)
+    connection.commit()
+except Exception as e:
+    print(e)
+    connecntion.rollback()
+
+insert_query1 = '''INSERT INTO table1 VALUES ('A1', 'motorcycle', '850', '20', '1', 'A')'''
+insert_query2 = '''INSERT INTO table1 VALUES ('A2', 'motorcycle', '750', '25', '2', 'A')'''
+insert_query3 = '''INSERT INTO table1 VALUES ('A3', 'motorcycle', '3500', '30', '3', 'A')'''
+insert_query4 = '''INSERT INTO table1 VALUES ('A4', 'sedan', '500', '90', '5', 'B')'''
+insert_query5 = '''INSERT INTO table1 VALUES ('A5', 'sedan', '350', '170', '6', 'B')'''
+insert_query6 = '''INSERT INTO table1 VALUES ('A6', 'sedan', '20', '160', '4', 'B')'''
+insert_query7 = '''INSERT INTO table1 VALUES ('A7', 'sedan', '1475', '80', '6', 'B')'''
+insert_query8 = '''INSERT INTO table1 VALUES ('A8', 'sedan', '500', '70', '7', 'B')'''
+insert_query9 = '''INSERT INTO table1 VALUES ('A9', 'sedan', '15400', '150', '5', 'B')'''
+insert_query10 = '''INSERT INTO table1 VALUES ('A10', 'sedan', '6543', '140', '4', 'B')'''
+insert_query11 = '''INSERT INTO table1 VALUES ('A11', 'sedan', '500', '130', '7', 'B')'''
+insert_query12 = '''INSERT INTO table1 VALUES ('A12', 'sedan', '864', '100', '5', 'B')'''
+insert_query13 = '''INSERT INTO table1 VALUES ('A13', 'sedan', '130', '105', '3', 'B')'''
+insert_query14 = '''INSERT INTO table1 VALUES ('A14', 'sedan', '8', '120', '9', 'B')'''
+insert_query15 = '''INSERT INTO table1 VALUES ('A15', 'sedan', '600', '60', '4', 'B')'''
+insert_query16 = '''INSERT INTO table1 VALUES ('A16', 'truck', '200', '95', '1', 'C')'''
+insert_query17 = '''INSERT INTO table1 VALUES ('A17', 'truck', '10', '80', '4', 'C')'''
+insert_query18 = '''INSERT INTO table1 VALUES ('A18', 'truck', '600', '85', '3', 'C')'''
+insert_query19 = '''INSERT INTO table1 VALUES ('A19', 'truck', '700', '90', '3', 'C')'''
+insert_query20 = '''INSERT INTO table1 VALUES ('A20', 'truck', '60', '80', '2', 'C')'''
+
+cursor.execute(insert_query1)
+cursor.execute(insert_query2)
+cursor.execute(insert_query3)
+cursor.execute(insert_query4)
+cursor.execute(insert_query5)
+cursor.execute(insert_query6)
+cursor.execute(insert_query7)
+cursor.execute(insert_query8)
+cursor.execute(insert_query9)
+cursor.execute(insert_query10)
+cursor.execute(insert_query11)
+cursor.execute(insert_query12)
+cursor.execute(insert_query13)
+cursor.execute(insert_query14)
+cursor.execute(insert_query15)
+cursor.execute(insert_query16)
+cursor.execute(insert_query17)
+cursor.execute(insert_query18)
+cursor.execute(insert_query19)
+cursor.execute(insert_query20)
+connection.commit()
+
+select_query = '''
+SELECT *
+FROM table1'''
+slt = cursor.execute(select_query)
+columns = [col[0] for col in slt.description]
+rows = slt.fetchall()
+print(columns)
+print(rows)
+
+df = pd.read_sql_query(select_query, connection)
+df
+
+sql_query = '''
+CREATE TABLE table2 (
+    identificator_id TEXT PRIMARY KEY,
+    id2_id INT REFERENCES table1(id_id),
+    Driver_name TEXT,
+    Driver_category TEXT
+    )'''
+
+cursor = connection.cursor()
+try:
+    cursor.execute(sql_query)
+    connection.commit()
+except Exception as e:
+    print(e)
+    connecntion.rollback()
+
+insert_query1 = '''INSERT INTO table2 VALUES ('Aa1', 'A1', 'Y', 'B')'''
+insert_query2 = '''INSERT INTO table2 VALUES ('Aa2', 'A2', 'D', 'A')'''
+insert_query3 = '''INSERT INTO table2 VALUES ('Aa3', 'A3', 'F', 'B')'''
+insert_query4 = '''INSERT INTO table2 VALUES ('Aa4', 'A4', 'E', 'B')'''
+insert_query5 = '''INSERT INTO table2 VALUES ('Aa5', 'A5', 'Q', 'B')'''
+insert_query6 = '''INSERT INTO table2 VALUES ('Aa6', 'A6', 'W', 'B')'''
+insert_query7 = '''INSERT INTO table2 VALUES ('Aa7', 'A7', 'A', 'B')'''
+insert_query8 = '''INSERT INTO table2 VALUES ('Aa8', 'A8', 'S', 'B')'''
+insert_query9 = '''INSERT INTO table2 VALUES ('Aa9', 'A9', 'Z', 'B')'''
+insert_query10 = '''INSERT INTO table2 VALUES ('Aa10', 'A10', 'X', 'C')'''
+insert_query11 = '''INSERT INTO table2 VALUES ('Aa11', 'A11', 'V', 'C')'''
+insert_query12 = '''INSERT INTO table2 VALUES ('Aa12', 'A12', 'N', 'A')'''
+insert_query13 = '''INSERT INTO table2 VALUES ('Aa13', 'A13', 'Y', 'B')'''
+insert_query14 = '''INSERT INTO table2 VALUES ('Aa14', 'A14', 'U', 'B')'''
+insert_query15 = '''INSERT INTO table2 VALUES ('Aa15', 'A15', 'M', 'B')'''
+insert_query16 = '''INSERT INTO table2 VALUES ('Aa16', 'A16', 'P', 'C')'''
+insert_query17 = '''INSERT INTO table2 VALUES ('Aa17', 'A17', 'O', 'B')'''
+insert_query18 = '''INSERT INTO table2 VALUES ('Aa18', 'A18', 'I', 'C')'''
+insert_query19 = '''INSERT INTO table2 VALUES ('Aa19', 'A19', 'U', 'B')'''
+insert_query20 = '''INSERT INTO table2 VALUES ('Aa20', 'A20', 'L', 'C')'''
+
+cursor.execute(insert_query1)
+cursor.execute(insert_query2)
+cursor.execute(insert_query3)
+cursor.execute(insert_query4)
+cursor.execute(insert_query5)
+cursor.execute(insert_query6)
+cursor.execute(insert_query7)
+cursor.execute(insert_query8)
+cursor.execute(insert_query9)
+cursor.execute(insert_query10)
+cursor.execute(insert_query11)
+cursor.execute(insert_query12)
+cursor.execute(insert_query13)
+cursor.execute(insert_query14)
+cursor.execute(insert_query15)
+cursor.execute(insert_query16)
+cursor.execute(insert_query17)
+cursor.execute(insert_query18)
+cursor.execute(insert_query19)
+cursor.execute(insert_query20)
+connection.commit()
+
+df = pd.read_sql_query(select_query, connection)
+df
+
+select_query = '''
+SELECT *
+FROM table2'''
+slt = cursor.execute(select_query)
+columns = [col[0] for col in slt.description]
+rows = slt.fetchall()
+print(columns)
+print(rows)
+
+sql_query = '''
+CREATE TABLE table3 (
+    id_id_id TEXT PRIMARY KEY,
+    Category TEXT,
+    Permitted_roads TEXT
+    )'''
+
+cursor = connection.cursor()
+try:
+    cursor.execute(sql_query)
+    connection.commit()
+except Exception as e:
+    print(e)
+    connecntion.rollback()
+
+insert_query1 = '''INSERT INTO table3 VALUES ('Aa11', 'A', 'CR22')'''
+insert_query2 = '''INSERT INTO table3 VALUES ('Aa22', 'A', 'AT12')'''
+insert_query3 = '''INSERT INTO table3 VALUES ('Aa33', 'A', 'BT14')'''
+insert_query4 = '''INSERT INTO table3 VALUES ('Aa44', 'B', 'EF77')'''
+insert_query5 = '''INSERT INTO table3 VALUES ('Aa55', 'B', 'WQ88')'''
+insert_query6 = '''INSERT INTO table3 VALUES ('Aa66', 'B', 'IO10')'''
+insert_query7 = '''INSERT INTO table3 VALUES ('Aa77', 'B', 'AD55')'''
+insert_query8 = '''INSERT INTO table3 VALUES ('Aa88', 'B', 'WQ88')'''
+insert_query9 = '''INSERT INTO table3 VALUES ('Aa99', 'B', 'ZX98')'''
+insert_query10 = '''INSERT INTO table3 VALUES ('Aa1010', 'B', 'ZX98')'''
+insert_query11 = '''INSERT INTO table3 VALUES ('Aa1111', 'B', 'AT12')'''
+insert_query12 = '''INSERT INTO table3 VALUES ('Aa1212', 'B', 'OP36')'''
+insert_query13 = '''INSERT INTO table3 VALUES ('Aa1313', 'B', 'EF77')'''
+insert_query14 = '''INSERT INTO table3 VALUES ('Aa1414', 'B', 'UU11')'''
+insert_query15 = '''INSERT INTO table3 VALUES ('Aa1515', 'B', 'CR22')'''
+insert_query16 = '''INSERT INTO table3 VALUES ('Aa1616', 'C', 'AD55')'''
+insert_query17 = '''INSERT INTO table3 VALUES ('Aa1717', 'C', 'OP36')'''
+insert_query18 = '''INSERT INTO table3 VALUES ('Aa1818', 'C', 'UU11')'''
+insert_query19 = '''INSERT INTO table3 VALUES ('Aa1919', 'C', 'BT14')'''
+insert_query20 = '''INSERT INTO table3 VALUES ('Aa2020', 'C', 'IO10')'''
+
+cursor.execute(insert_query1)
+cursor.execute(insert_query2)
+cursor.execute(insert_query3)
+cursor.execute(insert_query4)
+cursor.execute(insert_query5)
+cursor.execute(insert_query6)
+cursor.execute(insert_query7)
+cursor.execute(insert_query8)
+cursor.execute(insert_query9)
+cursor.execute(insert_query10)
+cursor.execute(insert_query11)
+cursor.execute(insert_query12)
+cursor.execute(insert_query13)
+cursor.execute(insert_query14)
+cursor.execute(insert_query15)
+cursor.execute(insert_query16)
+cursor.execute(insert_query17)
+cursor.execute(insert_query18)
+cursor.execute(insert_query19)
+cursor.execute(insert_query20)
+connection.commit()
+
+select_query = '''
+SELECT *
+FROM table3'''
+slt = cursor.execute(select_query)
+columns = [col[0] for col in slt.description]
+rows = slt.fetchall()
+print(columns)
+print(rows)
+
+select_query = '''
+SELECT *
+FROM table1
+JOIN table2 ON Category = Driver_category
+'''
+df = pd.read_sql_query(select_query, connection)
+df
+
+df = pd.read_sql_query(select_query, connection)
+df.to_excel('random_name.xlsx')
+
